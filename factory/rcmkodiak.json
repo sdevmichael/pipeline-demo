@@ -1,0 +1,9 @@
+{
+	"name": "rcmkodiak",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "71ecb317-5ac8-4b4c-884f-4090c6a0cd62",
+		"tenantId": "30c1f3f5-9aee-47a6-bdcc-51291a6a708a"
+	}
+}

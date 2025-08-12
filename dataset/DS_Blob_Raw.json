@@ -1,0 +1,52 @@
+{
+	"name": "DS_Blob_Raw",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Blob_Raw",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "raw"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "claim_id",
+				"type": "String"
+			},
+			{
+				"name": "patient_id",
+				"type": "String"
+			},
+			{
+				"name": "payer_id",
+				"type": "String"
+			},
+			{
+				"name": "procedure_code",
+				"type": "String"
+			},
+			{
+				"name": "claim_date",
+				"type": "String"
+			},
+			{
+				"name": "amount_billed",
+				"type": "String"
+			},
+			{
+				"name": "amount_paid",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
