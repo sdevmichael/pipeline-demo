@@ -67,7 +67,7 @@
 				]
 			},
 			{
-				"name": "Copy data1",
+				"name": "landing _ sf_staging",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -98,11 +98,23 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
 					"enableStaging": false
 				},
 				"inputs": [
 					{
 						"referenceName": "DS_Blob_Landing",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "sf_staging",
 						"type": "DatasetReference"
 					}
 				]
