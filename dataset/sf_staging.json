@@ -1,0 +1,16 @@
+{
+	"name": "sf_staging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_rcmsnowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [],
+		"typeProperties": {
+			"schema": "RCM_STAGING",
+			"table": ""
+		}
+	}
+}
