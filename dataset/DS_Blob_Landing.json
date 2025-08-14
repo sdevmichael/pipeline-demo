@@ -8,7 +8,7 @@
 		"parameters": {
 			"p_filename": {
 				"type": "string",
-				"defaultValue": "\"\""
+				"defaultValue": "@item().name"
 			}
 		},
 		"annotations": [],
@@ -16,7 +16,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "@dataset().p_filename",
+				"fileName": {
+					"value": "@dataset().p_filename",
+					"type": "Expression"
+				},
 				"container": "landing"
 			},
 			"columnDelimiter": ",",
