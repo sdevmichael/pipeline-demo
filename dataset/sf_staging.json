@@ -14,7 +14,7 @@
 		"type": "SnowflakeV2Table",
 		"schema": [],
 		"typeProperties": {
-			"schema": "",
+			"schema": "RCM_STAGING",
 			"table": {
 				"value": "@dataset().p_table",
 				"type": "Expression"
