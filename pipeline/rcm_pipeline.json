@@ -37,7 +37,7 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": "csv"
+							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false,
@@ -164,7 +164,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_table": {
-											"value": "@toUpper(replace(item().name, '.CSV',''))",
+											"value": "@toUpper(replace(item().name, '.csv',''))",
 											"type": "Expression"
 										}
 									}
