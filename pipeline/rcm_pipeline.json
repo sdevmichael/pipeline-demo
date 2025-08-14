@@ -62,10 +62,7 @@
 				"outputs": [
 					{
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_filename": "\"\""
-						}
+						"type": "DatasetReference"
 					}
 				]
 			},
@@ -91,13 +88,7 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_filename": {
-								"value": "@activity('raw_to_landing').p_filename",
-								"type": "Expression"
-							}
-						}
+						"type": "DatasetReference"
 					},
 					"fieldList": [
 						"childItems"
