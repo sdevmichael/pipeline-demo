@@ -59,7 +59,10 @@
 				"outputs": [
 					{
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"p_file": "@dataset().p_file"
+						}
 					}
 				]
 			},
@@ -85,7 +88,10 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"p_file": "@dataset().p_file"
+						}
 					},
 					"fieldList": [
 						"childItems"
@@ -158,7 +164,10 @@
 							"inputs": [
 								{
 									"referenceName": "DS_Blob_Landing",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"p_file": "@dataset().p_file"
+									}
 								}
 							],
 							"outputs": [
