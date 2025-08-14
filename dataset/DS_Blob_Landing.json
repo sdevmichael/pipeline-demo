@@ -11,7 +11,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@dataset().p_filename",
+					"value": "*.csv",
 					"type": "Expression"
 				},
 				"container": "landing"
