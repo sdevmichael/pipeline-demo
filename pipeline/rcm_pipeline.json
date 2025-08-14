@@ -164,7 +164,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_table": {
-											"value": "@replace(toUpper(item().name), '.csv','')",
+											"value": "@toUpper(substring(trim(item().name), 0, lastIndexOf(trim(item().name), '.')))",
 											"type": "Expression"
 										}
 									}
