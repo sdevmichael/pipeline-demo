@@ -5,11 +5,6 @@
 			"referenceName": "LS_Blob_Raw",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"p_file": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
