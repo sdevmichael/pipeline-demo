@@ -167,7 +167,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_table": {
-											"value": "@item().itemName",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
