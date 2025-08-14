@@ -62,7 +62,10 @@
 				"outputs": [
 					{
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"p_filename": "\"\""
+						}
 					}
 				]
 			},
@@ -81,20 +84,26 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference",
-						"parameters": {
-							"p_filename": "claims_data.csv"
-						}
+						"type": "DatasetReference"
 					},
-					"fieldList": [],
+					"fieldList": [
+						"childItems"
+					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
 		"annotations": [],
