@@ -100,10 +100,17 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEach file in landing",
 				"type": "ForEach",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata').output.childItems",
+						"type": "Expression"
+					},
+					"isSequential": true
+				}
 			}
 		],
 		"annotations": [],
