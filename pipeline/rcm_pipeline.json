@@ -164,7 +164,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"p_table": {
-											"value": "@toUpper(replace(item().name, '.csv',''))",
+											"value": "@toUpper(replace(item().name, '.CSV',''))",
 											"type": "Expression"
 										}
 									}
