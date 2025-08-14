@@ -5,6 +5,11 @@
 			"referenceName": "LS_rcmsnowflake",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"p_table": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "SnowflakeV2Table",
 		"schema": [],
