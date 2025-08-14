@@ -91,7 +91,13 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_Blob_Landing",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"p_filename": {
+								"value": "@activity('raw_to_landing').p_filename",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [
 						"childItems"
