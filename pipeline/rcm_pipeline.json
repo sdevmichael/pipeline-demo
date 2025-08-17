@@ -64,8 +64,8 @@
 				]
 			},
 			{
-				"name": "Get Metadata",
-				"type": "GetMetadata",
+				"name": "Copy data1",
+				"type": "Copy",
 				"dependsOn": [
 					{
 						"activity": "raw_to_landing",
@@ -83,97 +83,44 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SnowflakeV2Sink",
+						"importSettings": {
+							"type": "SnowflakeImportCopyCommand"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
 						"referenceName": "DS_Blob_Landing",
 						"type": "DatasetReference"
-					},
-					"fieldList": [],
-					"storeSettings": {
-						"type": "AzureBlobStorageReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
-				}
-			},
-			{
-				"name": "ForEach1",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Get Metadata",
-						"dependencyConditions": [
-							"Completed"
-						]
 					}
 				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata').output.childItems",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Copy data1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "0.12:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "DelimitedTextSource",
-									"storeSettings": {
-										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"wildcardFileName": {
-											"value": "@item()",
-											"type": "Expression"
-										},
-										"enablePartitionDiscovery": false
-									},
-									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
-									}
-								},
-								"sink": {
-									"type": "SnowflakeV2Sink",
-									"importSettings": {
-										"type": "SnowflakeImportCopyCommand"
-									}
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "DS_Blob_Landing",
-									"type": "DatasetReference"
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "sf_staging",
-									"type": "DatasetReference",
-									"parameters": {
-										"p_table": {
-											"value": "@toUpper(substring(trim(item().name), 0, lastIndexOf(trim(item().name), '.')))",
-											"type": "Expression"
-										}
-									}
-								}
-							]
+				"outputs": [
+					{
+						"referenceName": "sf_staging",
+						"type": "DatasetReference",
+						"parameters": {
+							"p_table": {
+								"value": "@activity('raw_to_landing').output",
+								"type": "Expression"
+							}
 						}
-					]
-				}
+					}
+				]
 			}
 		],
 		"annotations": [],
