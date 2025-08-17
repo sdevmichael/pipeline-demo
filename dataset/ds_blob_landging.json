@@ -1,5 +1,5 @@
 {
-	"name": "ds_blob_langing",
+	"name": "ds_blob_landging",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_Blob_Landing",
@@ -15,6 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
 				"container": "landing"
 			},
 			"columnDelimiter": ",",

@@ -135,7 +135,6 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
-										"wildcardFileName": "*",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -146,7 +145,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_blob_langing",
+									"referenceName": "ds_blob_landging",
 									"type": "DatasetReference"
 								}
 							]
