@@ -1,0 +1,56 @@
+{
+	"name": "ds_blob_langing",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Blob_Landing",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "landing"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "C001",
+				"type": "String"
+			},
+			{
+				"name": "PT101",
+				"type": "String"
+			},
+			{
+				"name": "PAY1",
+				"type": "String"
+			},
+			{
+				"name": "PROC001",
+				"type": "String"
+			},
+			{
+				"name": "2022-06-15",
+				"type": "String"
+			},
+			{
+				"name": "150",
+				"type": "String"
+			},
+			{
+				"name": "100",
+				"type": "String"
+			}
+		]
+	}
+}
