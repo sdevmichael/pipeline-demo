@@ -21,7 +21,6 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFileName": "*",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -32,7 +31,7 @@
 						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings",
-							"copyBehavior": "MergeFiles"
+							"copyBehavior": "PreserveHierarchy"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
