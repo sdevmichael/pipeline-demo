@@ -141,12 +141,36 @@
 										"type": "DelimitedTextReadSettings"
 									}
 								},
+								"sink": {
+									"type": "SnowflakeV2Sink",
+									"importSettings": {
+										"type": "SnowflakeImportCopyCommand"
+									}
+								},
 								"enableStaging": false
 							},
 							"inputs": [
 								{
 									"referenceName": "ds_blob_landging",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "sf_staging",
+									"type": "DatasetReference",
+									"parameters": {
+										"p_table": {
+											"value": "@toUpper(item().name)",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
