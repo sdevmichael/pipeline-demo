@@ -22,12 +22,9 @@
 				"container": "landing"
 			},
 			"columnDelimiter": ",",
-			"rowDelimiter": {
-				"value": "\n",
-				"type": "Expression"
-			},
+			"rowDelimiter": "\r\n",
 			"escapeChar": "\\",
-			"firstRowAsHeader": false,
+			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
 		"schema": [
