@@ -5,17 +5,17 @@
 		"factoryName": {
 			"value": "rcmkodiak"
 		},
-		"LS_Blob_Landing_connectionString": {
-			"value": ""
-		},
-		"LS_Blob_Raw_connectionString": {
-			"value": ""
-		},
 		"LS_rcmsnowflake_password": {
 			"value": ""
 		},
+		"LS_Blob_Landing_sasUri": {
+			"value": ""
+		},
+		"LS_Blob_Raw_sasUri": {
+			"value": ""
+		},
 		"LS_rcmsnowflake_properties_typeProperties_database": {
-			"value": "KODIAK_DEMO"
+			"value": "RCM"
 		},
 		"LS_rcmsnowflake_properties_typeProperties_role": {
 			"value": "ACCOUNTADMIN"

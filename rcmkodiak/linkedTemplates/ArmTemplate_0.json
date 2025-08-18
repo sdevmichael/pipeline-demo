@@ -7,21 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "rcmkodiak"
 		},
-		"LS_Blob_Landing_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Blob_Landing'"
-		},
-		"LS_Blob_Raw_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Blob_Raw'"
-		},
 		"LS_rcmsnowflake_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_rcmsnowflake'"
 		},
+		"LS_Blob_Landing_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_Blob_Landing'"
+		},
+		"LS_Blob_Raw_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_Blob_Raw'"
+		},
 		"LS_rcmsnowflake_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "KODIAK_DEMO"
+			"defaultValue": "RCM"
 		},
 		"LS_rcmsnowflake_properties_typeProperties_role": {
 			"type": "string",
@@ -40,7 +40,7 @@
 				"annotations": [],
 				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('LS_Blob_Landing_connectionString')]"
+					"sasUri": "[parameters('LS_Blob_Landing_sasUri')]"
 				}
 			},
 			"dependsOn": []
@@ -53,7 +53,7 @@
 				"annotations": [],
 				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"connectionString": "[parameters('LS_Blob_Raw_connectionString')]"
+					"sasUri": "[parameters('LS_Blob_Raw_sasUri')]"
 				}
 			},
 			"dependsOn": []
@@ -68,15 +68,14 @@
 				"typeProperties": {
 					"authenticationType": "Basic",
 					"accountIdentifier": "IKVZQIX-CB24989",
-					"user": "THIRUVENGADAM",
+					"user": "SMICHAEL",
 					"database": "[parameters('LS_rcmsnowflake_properties_typeProperties_database')]",
 					"warehouse": "COMPUTE_WH",
 					"role": "[parameters('LS_rcmsnowflake_properties_typeProperties_role')]",
 					"password": {
 						"type": "SecureString",
 						"value": "[parameters('LS_rcmsnowflake_password')]"
-					},
-					"schema": "staging"
+					}
 				},
 				"version": "1.1"
 			},
@@ -88,7 +87,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_Blob_Raw",
+					"referenceName": "LS_Blob_Landing",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -99,6 +98,7 @@
 						"container": "landing"
 					},
 					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
@@ -106,7 +106,7 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_Blob_Raw')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_Blob_Landing')]"
 			]
 		},
 		{
@@ -126,6 +126,7 @@
 						"container": "raw"
 					},
 					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
@@ -166,6 +167,101 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_blob_landging')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_Blob_Landing",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
+						"container": "landing"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "C001",
+						"type": "String"
+					},
+					{
+						"name": "PT101",
+						"type": "String"
+					},
+					{
+						"name": "PAY1",
+						"type": "String"
+					},
+					{
+						"name": "PROC001",
+						"type": "String"
+					},
+					{
+						"name": "2022-06-15",
+						"type": "String"
+					},
+					{
+						"name": "150",
+						"type": "String"
+					},
+					{
+						"name": "100",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_Blob_Landing')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sf_staging')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_rcmsnowflake",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"p_table": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SnowflakeV2Table",
+				"schema": [],
+				"typeProperties": {
+					"schema": "RCM_STAGING",
+					"table": {
+						"value": "@dataset().p_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_rcmsnowflake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/rcm_pipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -190,26 +286,24 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFileName": {
-										"value": "\n*.csv",
-										"type": "Expression"
-									},
+									"wildcardFileName": "*.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 1
 								}
 							},
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
 									"type": "AzureBlobStorageWriteSettings",
-									"copyBehavior": "FlattenHierarchy"
+									"copyBehavior": "PreserveHierarchy"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
 									"quoteAllText": true,
-									"fileExtension": "csv"
+									"fileExtension": ".csv"
 								}
 							},
 							"enableStaging": false,
@@ -236,6 +330,122 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Get Metadata Landing",
+						"type": "GetMetadata",
+						"dependsOn": [
+							{
+								"activity": "raw_to_landing",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "DS_Blob_Landing",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Metadata Landing",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Metadata Landing').output.childItems",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "SnowflakeV2Sink",
+											"importSettings": {
+												"type": "SnowflakeImportCopyCommand"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ds_blob_landging",
+											"type": "DatasetReference",
+											"parameters": {
+												"FileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "sf_staging",
+											"type": "DatasetReference",
+											"parameters": {
+												"p_table": {
+													"value": "@replace(toUpper(item().name), '.CSV','')",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
 					}
 				],
 				"policy": {
@@ -246,7 +456,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/DS_Blob_Raw')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Blob_Landing')]"
+				"[concat(variables('factoryId'), '/datasets/DS_Blob_Landing')]",
+				"[concat(variables('factoryId'), '/datasets/ds_blob_landging')]",
+				"[concat(variables('factoryId'), '/datasets/sf_staging')]"
 			]
 		}
 	]

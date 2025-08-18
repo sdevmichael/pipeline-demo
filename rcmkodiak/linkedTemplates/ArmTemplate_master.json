@@ -7,21 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "rcmkodiak"
 		},
-		"LS_Blob_Landing_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Blob_Landing'"
-		},
-		"LS_Blob_Raw_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_Blob_Raw'"
-		},
 		"LS_rcmsnowflake_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'LS_rcmsnowflake'"
 		},
+		"LS_Blob_Landing_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_Blob_Landing'"
+		},
+		"LS_Blob_Raw_sasUri": {
+			"type": "secureString",
+			"metadata": "Secure string for 'sasUri' of 'LS_Blob_Raw'"
+		},
 		"LS_rcmsnowflake_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "KODIAK_DEMO"
+			"defaultValue": "RCM"
 		},
 		"LS_rcmsnowflake_properties_typeProperties_role": {
 			"type": "string",
@@ -54,14 +54,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"LS_Blob_Landing_connectionString": {
-						"value": "[parameters('LS_Blob_Landing_connectionString')]"
-					},
-					"LS_Blob_Raw_connectionString": {
-						"value": "[parameters('LS_Blob_Raw_connectionString')]"
-					},
 					"LS_rcmsnowflake_password": {
 						"value": "[parameters('LS_rcmsnowflake_password')]"
+					},
+					"LS_Blob_Landing_sasUri": {
+						"value": "[parameters('LS_Blob_Landing_sasUri')]"
+					},
+					"LS_Blob_Raw_sasUri": {
+						"value": "[parameters('LS_Blob_Raw_sasUri')]"
 					},
 					"LS_rcmsnowflake_properties_typeProperties_database": {
 						"value": "[parameters('LS_rcmsnowflake_properties_typeProperties_database')]"
