@@ -22,6 +22,10 @@
 				"container": "landing"
 			},
 			"columnDelimiter": ",",
+			"rowDelimiter": {
+				"value": "\r\n",
+				"type": "Expression"
+			},
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
