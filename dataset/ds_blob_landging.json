@@ -23,11 +23,11 @@
 			},
 			"columnDelimiter": ",",
 			"rowDelimiter": {
-				"value": "\r\n",
+				"value": "\n",
 				"type": "Expression"
 			},
 			"escapeChar": "\\",
-			"firstRowAsHeader": true,
+			"firstRowAsHeader": false,
 			"quoteChar": "\""
 		},
 		"schema": [
